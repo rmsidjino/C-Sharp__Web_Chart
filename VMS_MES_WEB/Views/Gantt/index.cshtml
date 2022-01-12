@@ -1,0 +1,229 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>작업계획 Gantt Chart</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">작업계획</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- /.content-header -->
+<div class="formElements">
+    
+
+
+        EQP Group :
+        @Html.DropDownList("EQP")
+        Product ID
+        @Html.DropDownList("Product")
+        <input type="button" id="button1" onclick="GanttChart('hello');" value="버튼1" />
+        <script>
+            function GanttChart(s) {
+                document.getElementById(container).innerHTML = '';
+                anychart.onDocumentReady(function () {
+                    // The data used in this sample can be obtained from the CDN
+                    // https://cdn.anychart.com/samples/gantt-live-editing/resource-chart-editing/data.json
+                    anychart.data.loadJsonFile(
+                        'https://localhost:44370/Gantt/LoadEqpPlan/PAINT//',
+                        function (data) {
+                            // create data tree on raw data
+                            var treeData = anychart.data.tree(data, 'as-table');
+                            // create resource gantt chart
+
+                            var chart = anychart.ganttResource();
+                            chart.defaultRowHeight(50)
+                                .splitterPosition(150);
+
+                            //var view = treeData.mapAs();
+                            //var filteredView = view.filter('id', function (value) {
+                            //    return id = "PRESS";
+                            //});
+
+                            //var chart = anychart.ganttResource(filteredView);
+
+
+                            // set data for the chart
+                            chart.data(treeData);
+                            //chart.data(treeData);
+
+
+
+                            var timeLine = chart.getTimeline();
+                            //timeLine.elements().labels().anchor('left-bottom').offsetY(3);
+
+                            chart.getTimeline().scale().zoomLevels([
+                                [
+                                    { unit: "hour", count: 12 },
+                                    { unit: "day", count: 1 }
+                                ]
+                            ]);
+                            chart.getTimeline().scale().minimum("2019-11-08");
+                            chart.getTimeline().scale().maximum("2019-11-15");
+                            chart.getTimeline().periods().labels().enabled(true);
+                            chart.getTimeline().periods().labels().format("{%id}");
+                            chart.getTimeline().periods().labels().fontColor("black");
+                            chart.getTimeline().periods().labels().fontSize(8);
+                            // make chart editable
+
+                            chart.edit(true);
+
+                            var dataGrid = chart.dataGrid();
+
+                            var column = dataGrid.column(1);
+                            column.width(250);
+                            column.labelsOverrider(function (label, item) {
+                                if (item.meta('filter')) {
+                                    label.fontWeight('bold');
+                                    label.fontColor('#66BB6A');
+                                }
+                            });
+
+                            // set first column settings
+                            dataGrid
+                                .column(0)
+                                .title('#')
+                                .width(30)
+                                .labels({ hAlign: 'center' });
+                            // set second column settings
+                            dataGrid
+                                .column(1)
+                                .title('EQP')
+                                .width(150)
+                                .labels({ hAlign: 'center' });
+
+
+
+
+                            // set container id for the chart
+                            chart.container('container');
+
+                            // initiate chart drawing
+                            chart.draw();
+
+                            // zoom chart all dates range
+
+                            document
+                                .getElementById('step')
+                                .addEventListener('change', function (event) {
+                                    // set fiscal year start month
+                                    chart.xScale().fiscalYearStartMonth(event.target.value);
+                                });
+                        }
+                    );
+                });
+            }
+        </script>
+</div>
+
+<div id="container" style="height:700px"></div>
+@section Scripts
+    {
+    <script type="text/javascript">
+        anychart.onDocumentReady(function () {
+            // The data used in this sample can be obtained from the CDN
+            // https://cdn.anychart.com/samples/gantt-live-editing/resource-chart-editing/data.json
+            anychart.data.loadJsonFile(
+                'https://localhost:44370/Gantt/LoadEqpPlan',
+                function (data) {
+                    // create data tree on raw data
+                    var treeData = anychart.data.tree(data, 'as-table');
+                    // create resource gantt chart
+
+                    var chart = anychart.ganttResource();
+                    chart.defaultRowHeight(50)
+                        .splitterPosition(150);
+
+                    //var view = treeData.mapAs();
+                    //var filteredView = view.filter('id', function (value) {
+                    //    return id = "PRESS";
+                    //});
+
+                    //var chart = anychart.ganttResource(filteredView);
+
+
+                    // set data for the chart
+                    chart.data(treeData);
+                    //chart.data(treeData);
+
+
+
+                    var timeLine = chart.getTimeline();
+                    //timeLine.elements().labels().anchor('left-bottom').offsetY(3);
+
+                    chart.getTimeline().scale().zoomLevels([
+                        [
+                            { unit: "hour", count: 12 },
+                            { unit: "day", count: 1 }
+                        ]
+                    ]);
+                    chart.getTimeline().scale().minimum("2019-11-08");
+                    chart.getTimeline().scale().maximum("2019-11-15");
+                    chart.getTimeline().periods().labels().enabled(true);
+                    chart.getTimeline().periods().labels().format("{%id}");
+                    chart.getTimeline().periods().labels().fontColor("black");
+                    chart.getTimeline().periods().labels().fontSize(8);
+                    // make chart editable
+
+                    chart.edit(true);
+
+                    var dataGrid = chart.dataGrid();
+
+                    var column = dataGrid.column(1);
+                    column.width(250);
+                    column.labelsOverrider(function (label, item) {
+                        if (item.meta('filter')) {
+                            label.fontWeight('bold');
+                            label.fontColor('#66BB6A');
+                        }
+                    });
+
+                    // set first column settings
+                    dataGrid
+                        .column(0)
+                        .title('#')
+                        .width(30)
+                        .labels({ hAlign: 'center' });
+                    // set second column settings
+                    dataGrid
+                        .column(1)
+                        .title('EQP')
+                        .width(150)
+                        .labels({ hAlign: 'center' });
+
+
+
+
+                    // set container id for the chart
+                    chart.container('container');
+
+                    // initiate chart drawing
+                    chart.draw();
+
+                    // zoom chart all dates range
+
+                    document
+                        .getElementById('step')
+                        .addEventListener('change', function (event) {
+                            // set fiscal year start month
+                            chart.xScale().fiscalYearStartMonth(event.target.value);
+                        });
+                }
+            );
+        });
+    </script>
+}

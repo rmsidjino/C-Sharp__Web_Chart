@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VMS_MES_WEB", "VMS_MES_WEB\VMS_MES_WEB.csproj", "{95ED2F31-9551-4F71-9D46-6A87252C531F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95ED2F31-9551-4F71-9D46-6A87252C531F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95ED2F31-9551-4F71-9D46-6A87252C531F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95ED2F31-9551-4F71-9D46-6A87252C531F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95ED2F31-9551-4F71-9D46-6A87252C531F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {765DC820-BBB7-49E8-8033-1EC395DCABE4}
+	EndGlobalSection
+EndGlobal
